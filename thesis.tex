@@ -1,0 +1,118 @@
+\documentclass[a4paper,12pt,twoside]{book}
+% Preamble packages ------------------------------------------------------------
+\input{global/include.tex}
+
+% Custom macros --------------------------------------------------------------
+\input{global/macros.tex}
+
+\begin{document}
+
+% Front matter --------------------------------------------------------------
+  \frontmatter
+
+  \part{Volume I}
+
+  \volumecover{I}{0}{2}
+
+  \include{front/declaration}
+  \include{front/summary}
+
+  \cleardoublepage
+
+  \singlespacing
+  \tableofcontents
+  \doublespacing
+  %
+
+    \include{front/abbreviations}
+
+    \include{front/technical}
+
+    \chapter{Lists of music examples and tables}
+    \singlespacing
+    \listofexamples
+    \newpage
+    \listoftables
+    \doublespacing
+
+    \include{front/acknowledgements}
+
+% Body content -----------------------------------------------------------------
+
+  \mainmatter
+
+  \include{c/0/0} %Introduction
+
+   \include{c/1/1}
+   %
+     \include{c/2/2}
+   % %
+    \include{c/3/3}
+
+    \include{c/4/4}
+
+    \include{c/5/5}
+
+    \include{c/6/6} %Postscript
+
+    \include{c/7/7} %Conclusion
+
+% \clearpage
+
+% Back matter --------------------------------------------------------------
+%TC:ignore
+\include{back/bibliography}
+
+%TC:endignore
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Maintain for TOC redirection
+\clearpage
+\phantomsection
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %Appendices ---------------------------------------------------------------
+  \volumecover{II}{302}{304}
+   %First page number of next volume
+  \part{Volume II}
+
+  \cleardoublepage
+
+  \singlespacing
+  \tableofcontents
+  \doublespacing
+
+  \appendix
+  {\footnotesize
+%
+  \begin{appendices}
+%
+%
+  \singlespacing
+   \chapter{Music examples}
+   \label{ln:appendix_examples}
+    \input{c/1/ex/1} %Chapter 1 examples
+%
+     \input{c/2/ex/2} %Chapter 2 examples
+%     % %
+     \input{c/3/ex/3} %Chapter 3 examples
+%     % %
+    \input{c/4/ex/4} %Chapter 4 examples
+
+    \input{c/5/ex/5} %Chapter 5 examples
+
+    \input{c/6/ex/6} %Postscript examples
+
+
+    \chapter{Tables}
+
+      \input{c/1/tab/1}
+      \input{c/3/tab/3}
+      \input{c/4/tab/4}
+      \input{c/5/tab/5}
+
+    \input{back/appendices/handlist}
+
+
+   \end{appendices}
+}
+% Here endeth the PhD ----------------------------------------------------------
+\end{document}

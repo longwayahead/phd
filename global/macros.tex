@@ -1,0 +1,70 @@
+% ---------------------------------------------------------------
+% Abbreviatios
+%----------------------------------------------------------------
+
+%Archives
+\newcommand{\so}{\emph{F-SO}}
+\newcommand{\bnf}{\emph{F-Pn}}
+\newcommand{\qaa}{\emph{GB-OLQ}}
+\newcommand{\swf}[1]{\emph{F-SWF}:~1~W%
+}%
+% \newcommand{\bl}{
+%   GB-Lbl
+% }
+
+%Publications
+\newcommand{\cvk}[1]{\emph{CVK} \textnumero~#1}
+\newcommand{\tsg}[1]{%
+  \emph{TSG}%
+}
+\newcommand{\ldo}[1]{\emph{Livre d'Orgue}}
+\newcommand{\tls}{TLS} %Tra le sollicitudini
+
+%Terms
+\newcommand{\sic}{{[}\emph{sic}{]}}
+\newcommand{\ny}{{[}n.y.{]}}
+
+% ---------------------------------------------------------------
+% Letters
+%----------------------------------------------------------------
+\newcommand{\letter}[4]{%
+  #1 to #2, #3, #4%From, to, date, collection
+}
+
+\newcommand{\fnletter}[4]{%
+  \footnote{\letter{#1}{#2}{#3}{#4}.}%
+}
+
+% ---------------------------------------------------------------
+% Pitches
+%----------------------------------------------------------------
+%\what and \wtilde are from the mtpro2[lite] package
+\newcommand{\pitch}[1]{$\what{#1}$}
+\newcommand{\negpitch}[1]{$-\what{#1}$}
+
+\newcommand{\abspitch}[1]{$\wtilde{#1}$}
+\newcommand{\negabspitch}[1]{$-\wtilde{#1}$}
+
+% ---------------------------------------------------------------
+% Symbols
+%----------------------------------------------------------------
+\newcommand{\covid}{%
+  \textreferencemark%
+}
+
+
+% ---------------------------------------------------------------
+% Helper macros
+%----------------------------------------------------------------
+
+\newcommand{\legeayGroup}{%
+  \begingroup\normalfont
+  %Crop left white space from PDF
+  %Make height of graphic same as block capital height in font
+  \includegraphics[trim={3.5mm 0 0 0 0},clip,height=\fontcharht\font`\B]{c/3/ex/legeay_group/legeay_group.pdf}%
+  \endgroup%
+}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+\newcommand{\hlabel}{\phantomsection\label}

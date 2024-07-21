@@ -1,0 +1,21 @@
+  \chapter*{Declaration}
+  I declare that this thesis has not previously been submitted as an exercise for a degree at this or any other university, and that it is entirely my own work.
+
+  I agree to deposit this thesis in the University's open access institutional repository or to allow the library to do so on my behalf, subject to Irish Copyright Legislation and Trinity College Library conditions of use and acknowledgement.
+
+
+  \noindent\parbox{\textwidth}{
+  \vspace{2cm}
+  \centering
+    \begin{tikzpicture}
+      \draw[thick](0,0)--(6,0)node[midway,yshift=2.5mm](c){%
+        \censorbox{%
+          \includegraphics{front/signature-redacted.png}%
+        }
+      };
+         \node[yshift=8mm] at (c.south) {\textcolor{white}{\texttt{Redacted}}};
+      %If censoring, change yshift to -2mm. Otherwise it should be 1mm
+      \node[yshift=-2mm] at (c.south) {Cillian Long};
+    \end{tikzpicture}
+    }
+  \clearpage

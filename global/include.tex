@@ -1,0 +1,451 @@
+
+% Document setup ---------------------------------------------------------------
+
+% PAGE SETUP -----
+  \usepackage[doublespacing]{setspace} % Double line spacing
+
+  \frenchspacing
+
+  \usepackage[a4paper,bottom=25mm,top=25mm, right=25mm,left=35mm]{geometry} % Margins
+
+  % \raggedbottom
+
+  \usepackage{fancyhdr} % Headers and footers
+  \pagestyle{fancyplain}
+  \fancyhf{}
+  \setlength\headheight{17pt}
+  \renewcommand{\headrulewidth}{0pt}% No header rule
+  \renewcommand{\footrulewidth}{0pt}% No footer rule
+  \fancyhead[LE,RO]{\thepage}
+
+  % TITLE PAGE ------------
+  \usepackage{titling}
+  \newcommand{\volumecover}[3]{
+  \newgeometry{top=35mm,bottom=35mm,right=35mm,left=35mm}
+  \begin{titlepage}
+    \doublespacing
+    \addtocounter{page}{#2}
+    \centering
+    \large Trinity College Dublin, the University of Dublin\par
+    \vspace*{\fill}
+    \large \uppercase{The Accompaniment of Plainchant in France, Belgium and Certain Other Catholic Regions: A Chronological Study of Theory and Practice from the French Revolution to the Second Vatican Council}\par
+    \vspace*{\fill}
+    \large {Thesis submitted for the degree of Doctor in Philosophy}\par
+    \par
+    \large {Cillian Long}\par
+    \par
+    \large {2022}\par
+    \vspace*{\fill}
+    \large {Complete in Two Volumes}\par
+    \large {Volume #1}
+  \end{titlepage}
+  \setcounter{page}{#3}
+  \restoregeometry
+  }
+
+  %Blank pages
+\usepackage{afterpage}
+\newcommand\insertemptypage{
+  \null
+  \thispagestyle{empty}
+  \mbox{}
+  \newpage
+  }
+
+  %Allow prepending to commands, particularly bibliograhical ones
+   \usepackage{xpatch}
+
+% COPY --------
+
+\usepackage[german,french,british]{babel} % Correct hyphenation
+\usepackage[none]{hyphenat} %Turn off hyphenation
+   % \usepackage{luatexbase} fixes bug with microtype below
+  \usepackage{luatexbase}
+  \usepackage[activate={true,nocompatibility},final,tracking=true,factor=1100,stretch=10,shrink=10]{microtype} % Makes type look better
+  % \widowpenalty=150 % Prevent widows
+  % \clubpenalty=150 % Prevent orphans
+  \usepackage{nowidow}
+%   \clubpenalty=9996
+% \widowpenalty=9999
+% \brokenpenalty=4991
+% \predisplaypenalty=10000
+% \postdisplaypenalty=1549
+% \displaywidowpenalty=1602
+
+%Less hyphenation
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=9000
+\hbadness=90000
+
+% \usepackage{titletoc}
+% SECTION TITLES FORMAT ---
+
+  \usepackage{etoolbox}
+  % \patchcmd{\@makechapterhead}{\thechapter}{\numberstring{chapter}}{}{}
+  % \patchcmd{\chaptermark}{\thechapter}{\numberstring{chapter}}{}{}
+  % \makeatother
+  \usepackage{fmtcount} % To convert numbers into textual equivalents
+  \usepackage{titlesec} % To change the formatting of \chapter, \section etc
+  \usepackage{xstring}%To get numbers and turn them into textual equivalents
+  %Here we're changing the formatting of the chapter label and title to centered uppercase - display is required so they're on different lines. I have to move the label to the right by 1mm to make it match up with the title.
+  \titleformat{\chapter}[display]{\centering}  {\hspace*{1mm}\MakeUppercase\chaptertitlename\
+    %This changes the chapter number into text if it is supplied as a number. Appendices are lettered and so the function does not try to numerise them.
+    \IfInteger{\thechapter}%If the chapter number is a number
+          {\NUMBERstringnum{\thechapter}     } %Convert it into text equivalent - 3=three
+         {\thechapter}%Otherwise the chapter is lettered (as an appendix) and this returns the letter
+  }
+  {12pt} %Space between chapter label and the title
+  {\MakeUppercase} %Make title uppercase
+  []
+   %section titles
+  \titleformat{\section}[hang]
+  {\centering}{\thesection}{12pt}{} %Section titles
+  \titleformat*{\subsection}{\itshape} %Subsection titles get changed to italics
+
+  \usepackage{tocloft}%Modify how sections and chapters etc are represented on the table of contents
+
+
+  %List of music examples - header format
+    \renewcommand{\cftloftitlefont}{\hfill\normalfont} %Center from left, roman
+    \renewcommand{\cftafterloftitle}{\hfill} %center from right
+
+  %List of tables - header format
+    \renewcommand{\cftlottitlefont}{\hfill\normalfont}
+    \renewcommand{\cftafterlottitle}{\hfill}
+
+  %Parts (volumes)
+      %Roman font, and centre from left
+    \renewcommand{\cftpartfont}{\hfill\normalfont}
+      %Hack to centre from right
+    \makeatletter
+      \patchcmd{\l@part}{#1}{#1\hfill\hskip-\rightskip\mbox{}}{}{}
+    \makeatother
+      %Turn off display of pagination in TOC
+     \cftpagenumbersoff{part}
+
+% \renewcommand{\cftpartpagefont}{\normalfont}
+    %% Do not allow \part{} to print an extra page, also centre the part title in the TOC
+    % \renewcommand{\part}[1]{\addcontentsline{toc}{part}{\hspace{.439\linewidth} #1}}%439 is a hack to get volume title more or less centred
+    \renewcommand{\part}[1]{\addcontentsline{toc}{part}{#1}}%439 is a hack to get volume title more or less centred
+
+  %Chapter titles
+
+  \renewcommand{\cftchapfont}{\normalfont}
+  \renewcommand{\cftchappagefont}{\normalfont}%pagenumber in Roman
+  \cftsetpnumwidth{\widthof{2pt}}
+  \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+
+
+  %Table of contents header
+    %Centre it, times new roman, uppercase
+  \renewcommand{\cfttoctitlefont}{\hfill\normalfont\MakeUppercase}
+    %Have to add this for it to centre properly
+  \renewcommand{\cftaftertoctitle}{\hfill}
+  \AtBeginDocument{\renewcommand{\contentsname}{Table of Contents}}%Required when using babel
+
+  \usepackage{etoc}
+  \setcounter{secnumdepth}{2}
+  \setcounter{tocdepth}{2}
+
+
+
+
+% Abbreviations -----------------------------------------------------------------
+% \usepackage[nomain,toc,acronym,section=chapter,nopostdot,nonumberlist,numberedsection]{glossaries}
+% \setacronymstyle{short}
+% \renewcommand{\glossarysection}[2][]{}
+% Bibliography -----------------------------------------------------------------
+\usepackage[backend=biber,
+  bibencoding=utf8,
+  isbn=false,
+  doi=false,
+  url=false,
+  datecirca=true,
+  useprefix=false,
+  sorting=nyt,%Sort bibliography by name, then date, then title
+  ]{biblatex-chicago}
+ \addbibresource{bib/library.bib}
+
+
+%`bibindex' is the macro called at each line in the bibliography. Check to see if a bibliographical entry has `covid' as one of its keywords (tags in Zotero) and if it does then prepend the relevant mark.
+ \xapptobibmacro{bibindex}{\ifkeyword{covid}{\covid{}}{}}{}{}
+
+ %Make bibliography smaller than body text, or same size at footnotes
+ \renewcommand*{\bibfont}{\footnotesize}
+
+ %Continuous footnote numbering
+  \counterwithout{footnote}{chapter}
+  %Footnote styling - small number and indented
+  \usepackage[hang,flushmargin]{footmisc}
+
+    %Remove language when printing citations
+ \AtEveryCitekey{\clearlist{language}}
+ \AtEveryBibitem{\clearlist{language}}
+    %Remove Google Books unique IDs when printing citations
+  \AtEveryCitekey{\clearfield{eprint}}
+  \AtEveryBibitem{\clearfield{eprint}}
+
+  %Change format of `circa'
+  \renewcommand{\datecircadelim}{}
+  \DefineBibliographyStrings{english}{circa = \emph{c}.}
+
+
+
+% Appendices ------------------------------------------------------------------
+
+\usepackage[titletoc]{appendix}
+% Graphics ---------------------------------------------------------------------
+\usepackage{graphicx}
+
+\usepackage{censor} %To white-out signature
+
+\usepackage{wrapfig}
+%\graphicspath{{/home/cillian/Documents/phd/fragments/pieces/}}
+
+% Musical examples -------------------------------------------------------------
+\usepackage{lyluatex} % Lilypond compiler
+%\usepackage[autocompile]{gregoriotex} % Gregorio compiler
+\usepackage{float} % Allows use of H placement flag -- place item right here.
+
+% % For epigraphs ----------------------------------------------------------------
+% \usepackage{epigraph}
+
+
+
+% Music fonts ------------------------------------------------------------------
+
+
+% \usepackage[utf8x]{inputenx}
+% \usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fontspec}
+
+\usepackage{lilyglyphs} % Inline music font
+\usepackage{amssymb} %For \because symbol
+
+%This Times New Roman (TNR) font has ligatures enabled by default
+\setmainfont{Tex Gyre Termes}
+
+\newfontfamily\greekfont[Script=Greek]{Linux Libertine O}
+
+%This is the TNR font for the mathematics environment. Install instructions in the readme.
+\usepackage[lite]{mtpro2}
+
+
+% Quotes -----------------------------------------------------------------------
+\usepackage{csquotes}
+
+% \usepackage{etoolbox}
+\AtBeginEnvironment{quote}{\singlespace\vspace{-2em}}%-2em is hacky way to bunch it up with preceding paragraph
+\AtEndEnvironment{quote}{\vspace{-12pt}\endsinglespace} %formerly -\topsep -- to be kept under review -- spacing between bottom of quote and next element.
+\patchcmd{\quote}{\rightmargin}{\leftmargin \parindent \rightmargin}{}{} %Sets the indentation of the quote - by the same amount as the paragraph indent for consistency's sake
+
+\newcommand{\single}[2]{
+  \begin{quote}
+    \singlespacing
+    #1\footnotemark
+  \end{quote}
+  \footnotetext{#2.}
+}
+
+%Typeset subscript prime symbol in mathematics mode
+\makeatletter
+\def\active@math@sprime{_\bgroup\sprim@s}
+{\catcode`\`=\active \global\let`\active@math@sprime}
+\def\sprim@s{%
+  \prime\futurelet\@let@token\spr@m@s}
+\def\spr@m@s{%
+  \ifx`\@let@token
+    \expandafter\spr@@@s
+  \else
+    \ifx_\@let@token
+      \expandafter\expandafter\expandafter\spr@@@t
+    \else
+      \egroup
+    \fi
+  \fi}
+\def\spr@@@s#1{\sprim@s}
+\def\spr@@@t#1#2{#2\egroup}
+\mathcode`\`="8000
+\makeatother
+%End of typesetting subscript prime symbol
+
+\usepackage{tikz}
+% \usetikzlibrary{tikzmark,arrows,shapes}
+
+
+\usepackage{parallel}
+\usepackage{calc}
+
+
+%Define the column width
+\newlength\columnWidth
+%.5\parindent sets the gap between columns
+\setlength{\columnWidth}{.5\linewidth+.5\parindent}
+%Define a generic two-column environment
+\newcommand{\dualcolumn}[2]{
+  %Set up two columns of a certain width
+  \begin{Parallel}[c]{\columnWidth}{\columnWidth}
+    %Set single line spacing because we are citing a source
+    \singlespacing%
+    %Left column
+    \ParallelLText{
+      \leftskip=\parindent%
+      \parindent=0pt%
+      \sloppy%
+      #1%
+      %% Returning these values back to what they were in include.tex -- hacky!
+      \tolerance=1%
+      \emergencystretch=\maxdimen%
+      \hyphenpenalty=9000%
+      \hbadness=90000%
+      %%
+    }%
+    %Right column
+    \ParallelRText{%
+      \rightskip=\parindent%
+      \parindent=0pt%]
+      \begin{itshape}%
+        \sloppy%
+        #2%
+      \end{itshape}%
+      %% Returning these values back to what they were in include.tex -- hacky!
+      \tolerance=1%
+      \emergencystretch=\maxdimen%
+      \hyphenpenalty=9000%
+      \hbadness=90000%
+    }%
+  \end{Parallel}%
+}
+
+\newcommand{\simplex}[3]{
+  \dualcolumn{#1\footnotemark}{#3}
+  \footnotetext{#2.}%
+}
+
+
+%Required to access variables starting with @
+\makeatletter%
+\newcommand{\duplex}[4]{%
+  %Set up two-column environment
+  \dualcolumn{%
+    % Text for left-most column is stored in #1
+    % The link's target is stored in the variable @L
+      % This gets overwritten each time duplex environment is called
+    #1\footnotemark\global\let\saved@Href@L\Hy@footnote@currentHref%
+  }%
+  {%
+    %Similar to the above for the right-most column
+    % Target is saved in @R
+    #3\footnotemark\global\let\saved@Href@R\Hy@footnote@currentHref%
+  }%
+  %De-increment the number of the footnote
+    %the second \footnotemark was necessary to have two column side-by-side, but the integer has now been incremented one too many times
+  \addtocounter{footnote}{-1}%
+  %Recall @L so the hyperref package knows where to send readers who click on the superscript link
+  \let\Hy@footnote@currentHref\saved@Href@L%
+  % #2 is whatever is going into the footnote for the left-most column
+  \footnotetext{#2.}%
+  %Increment the footnote counter
+  \stepcounter{footnote}%
+  %Recall the "R" variable
+  \let\Hy@footnote@currentHref\saved@Href@R%
+  %Set whatever is going into the right-most footnote
+  \footnotetext{#4.}%
+}%
+%Return @ to its previous functionality
+\makeatother%
+
+
+
+% Captions ---------------------------------------------------------------------
+\usepackage[font=footnotesize]{caption} % Reduce size of caption text
+\usepackage[breaklinks,hidelinks,bookmarksnumbered]{hyperref} % Make references into hyperlinks: break over lines; hide links (dont draw bounding box), bookmarksnumbered=put in A into "Appendix A" (etc) in Adobe Reader bookmarks pane.
+  \hypersetup{urlcolor=black,
+  colorlinks=false,
+  pdftitle={The Accompaniment of Plainchant in France, Belgium and Certain Other Catholic Regions: A Chronological Study of Theory and Practice from the French Revolution to the Second Vatican Council},
+  pdfauthor={Cillian Long},
+  pdfproducer={},
+  pdfcreator={}
+  }  % Hyperlink colour
+
+%Make hyperlinks monospaced
+\usepackage{url}
+  \urlstyle{tt}
+
+% \usepackage{subcaption} % Multiple captions in a row
+\usepackage{cleveref} % Allows flexible reference tags
+
+  \crefname{page}{p.}{pp.}
+  \crefname{section}{§}{§§}
+
+
+\renewcommand\thefigure{\arabic{figure}}
+
+\usepackage{newfloat}
+\DeclareFloatingEnvironment[
+  fileext=loex,
+    listname={List of Music Examples},
+    name=Example,
+    placement=tbhp,
+    within=none
+]{example}
+\crefname{example}{ex.}{exx.}
+\Crefname{example}{Ex.}{Exx.}
+% \DeclareFloatingEnvironment[
+%   fileext=loillus,
+%     listname={List of Illustrations},
+%     name=Illustration,
+%     placement=tbhp,
+%     within=none
+% ]{illustration}
+% \crefname{illustration}{illus.}{illus.}
+% \Crefname{illustration}{Illus.}{Illus.}
+
+
+% TeXCount ---------------------------------------------------------------------
+%TC:macro \footnote [ignore]
+%TC:macro \letter [ignore,ignore,ignore,ignore]
+%TC:macro \fnletter [ignore,ignore,ignore,ignore]
+
+%TC:macro \single [ignore,ignore]
+%TC:macro \simplex [ignore,ignore,text]
+%TC:macro \duplex [ignore,ignore,text,ignore]
+%TC:macro \dualcolumn [ignore,text]
+%TC:macro \cite [option:ignore,ignore]
+%TC:macro \footcite [option:ignore,ignore]
+
+\usepackage{lipsum}
+
+%To enable landscape mode ------------------------------------------------------
+\usepackage{rotating} % for 'sidewaystable' environment
+\usepackage{pdflscape}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%For a printable PDF, uncomment the following three lines which turns off the PDF /Rotate flag
+% \makeatletter
+% \renewcommand\PLS@Rotate[1]{}
+% \makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Make showframe work properly in landscape mode
+\makeatletter
+\newcommand*{\gmshow@textheight}{\textheight}
+\newdimen\gmshow@@textheight
+\g@addto@macro\landscape{%
+  \gmshow@@textheight=\hsize
+  \renewcommand*{\gmshow@textheight}{\gmshow@@textheight}%
+}
+\def\Gm@vrule{%
+  \vrule width 0.2pt height\gmshow@textheight depth\z@
+}%
+\makeatother
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+
+\usepackage{textcomp}
+
+\usepackage[normalem]{ulem}

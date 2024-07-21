@@ -1,0 +1,22 @@
+% \printbibheading
+\begingroup
+  %Single spacing within bibliography
+  \setstretch{1}
+  %no extra vertical space added between entries
+  \setlength\bibitemsep{0pt}
+  %Print the bibliography
+  \printbibliography[heading=bibintoc,title={Bibliography}]
+\endgroup
+%
+% \printbibheading[
+% heading=bibintoc, % bibintoc adds the Bibliography to the table of contents
+% title={Bibliography} % If we want to override the default title "Bibliography"
+% ]
+% \phantomsection
+% \printbibliography[heading=subbibintoc,title={Sources: written texts},notkeyword={treatise},notkeyword={score},keyword={primary}]
+% \phantomsection
+% \printbibliography[heading=subbibintoc,title={Sources: manuals \& treatises},notkeyword={score},notkeyword={primary},keyword={treatise}]
+% \phantomsection
+% \printbibliography[heading=subbibintoc,title={Sources: scores},notkeyword={primary},notkeyword={treatise},keyword={score}]
+% \phantomsection
+% \printbibliography[heading=subbibintoc,title={Books and articles},notkeyword={score},notkeyword={primary},notkeyword={treatise}] %change subbibintoc to subbibliography to remove from toc
